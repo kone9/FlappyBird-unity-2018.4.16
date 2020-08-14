@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Columnas : MonoBehaviour
 {
-    public int velocidad = 1;
-    public Pajaro _Pajaro;
+    //public Pajaro _Pajaro;
     private Rigidbody moverColumnas;
     private Vector3 Movimiento;
-     void Awake()
-     {
+    public GameController _ManejadorJuego;
+    void Awake()
+    {
         moverColumnas = GetComponent<Rigidbody>();
-        _Pajaro = FindObjectOfType<Pajaro>();
-     }
+        //_Pajaro = FindObjectOfType<Pajaro>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +31,8 @@ public class Columnas : MonoBehaviour
         //                 this.transform.position.z
         //                 )
         // );
+        
+        //moverColumnas.velocity = new Vector3(0,0,velocidad);
     }
 
     // Update is called once per frame
@@ -41,24 +43,28 @@ public class Columnas : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_Pajaro.GameOver == false)//sino es GameOVer
+        if(_ManejadorJuego.gameOver == false)
         {
-            Movimiento.z = 1f * Time.deltaTime;
-            moverColumnas.MovePosition(this.transform.position + Movimiento * velocidad);
-            if(moverColumnas.transform.position.z > 20)
-            {
-                this.moverColumnas.MovePosition(
-                    new Vector3(0
-                                ,
-                                Random.Range(4.5f, 8f)//columna posición aleatorio en Y
-                                ,
-                                -50
-                    )
-                );
-                
-            }
-        }
+            this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime;
 
+        }
+        // // if(_ManejadorJuego.gameObject == false)
+        // // {
+        // //     //Movimiento.z = 1f * Time.deltaTime;
+        // //     this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime;
+        // //     //this.transform.Translate(Vector3.forward *  _ManejadorJuego.velocidadJuego * Time.deltaTime);
+        // //     //this.transform.position = this.transform.position + Movimiento * velocidad;
+        // //     if(transform.position.z > 20)
+        // //     {
+        // //         this.transform.position = new Vector3(
+        // //             this.transform.position.x,
+        // //             Random.Range(4.5f,8f),//columna posición aleatorio en Y,
+        // //             -50
+        // //         );
+        // //     }
+
+        // // }
+        
         
         
     }

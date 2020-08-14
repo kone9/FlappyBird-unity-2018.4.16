@@ -7,16 +7,20 @@ public class Suelo : MonoBehaviour
     public int velocidad = 1;
     private Rigidbody moverSuelo;
     private Vector3 Movimiento;
-    public Pajaro _Pajaro;
+
+    public GameObject emphtyReposicionar;
+    public GameController _ManejadorJuego;
+    
      void Awake()
      {
-         moverSuelo = GetComponent<Rigidbody>();
-          _Pajaro = FindObjectOfType<Pajaro>();
+        
+        moverSuelo = this.GetComponent<Rigidbody>();
+          
      }
     // Start is called before the first frame update
     void Start()
     {
-    
+        //moverSuelo.velocity = new Vector3(0,0,velocidad);
     }
 
     // Update is called once per frame
@@ -27,14 +31,20 @@ public class Suelo : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_Pajaro.GameOver == false)
+        if(_ManejadorJuego.gameOver == false)
         {
-            Movimiento.z = 1f * Time.deltaTime;
-            moverSuelo.MovePosition(this.transform.position + Movimiento * velocidad);
-            if(moverSuelo.transform.position.z > 20)
+            //Movimiento.z = 1f * Time.deltaTime;
+            this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime ;
+            //transform.Translate((Vector3.forward * _ManejadorJuego.velocidadJuego * Time.deltaTime),(Space.World));
+            //moverSuelo.MovePosition(this.transform.position + Movimiento * _ManejadorJuego.velocidadJuego);
+            if(this.transform.position.z > 60)
             {
-                this.moverSuelo.MovePosition(new Vector3(0,0,-50));
-                
+                print("el suelo tendría que reposicionarse");
+                //this.transform.Translate(new Vector3(this.transform.position.x,-30,this.transform.position.z),Space.World);
+                this.transform.position = new Vector3(
+                    this.transform.position.x,
+                    this.transform.position.y,
+                    emphtyReposicionar.transform.position.z);
             }
         }
 
