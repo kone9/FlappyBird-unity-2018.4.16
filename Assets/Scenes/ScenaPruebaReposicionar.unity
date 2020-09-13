@@ -151,7 +151,7 @@ MeshCollider:
   m_GameObject: {fileID: 129396397}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -163,7 +163,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129396397}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -456,7 +456,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadJuego: 30
-  desplazamiento: 0
   emphtyReposicionar: {fileID: 309364573}
 --- !u!23 &446257770
 MeshRenderer:
@@ -554,7 +553,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadJuego: 30
-  desplazamiento: 0
   emphtyReposicionar: {fileID: 503659554}
 --- !u!23 &456787122
 MeshRenderer:
@@ -742,7 +740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadJuego: 30
-  desplazamiento: 0
   emphtyReposicionar: {fileID: 1193901609}
 --- !u!23 &1391047397
 MeshRenderer:
@@ -840,7 +837,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadJuego: 30
-  desplazamiento: 0
   emphtyReposicionar: {fileID: 1193901609}
 --- !u!23 &1529577418
 MeshRenderer:
