@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="HAXE_MODULE" version="4">
+  <component name="HaxeModuleSettingsStorage">
+    <option name="arguments" value="" />
+    <option name="buildConfig" value="1" />
+    <option name="excludeFromCompilation" value="true" />
+    <option name="flexSdkName" value="flex_sdk_4.6" />
+    <option name="haxeTarget" value="JavaScript" />
+    <option name="hxmlPath" value="$MODULE_DIR$/../flappyBird-babylon-html5.hxml" />
+    <option name="mainClass" value="Main" />
+    <option name="outputFileName" value="kha.swf" />
+    <option name="outputFolder" value="$MODULE_DIR$/../html5" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../html5" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/Kha/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/Kha/Backends/HTML5" isTestSource="false" />
+      <sourceFolder url="file:///home/ariel/Documentos/Proyectos_blender 2.8/flappyBird/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/armory/Sources" isTestSource="false" />
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/iron/Sources" isTestSource="false" />
+
+    </content>
+    <content url="file://Libraries/../../../../programas instalados/armory engine Blender 2.8/ArmorySDK/armory">
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/armory" isTestSource="false" />
+    </content>
+    <content url="file://Libraries/../../../../programas instalados/armory engine Blender 2.8/ArmorySDK/iron">
+      <sourceFolder url="file:///home/ariel/programas instalados/armory engine Blender 2.8/ArmorySDK/iron" isTestSource="false" />
+    </content>
+    
+    <orderEntry type="jdk" jdkName="Haxe 3.2.0" jdkType="Haxe toolkit" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

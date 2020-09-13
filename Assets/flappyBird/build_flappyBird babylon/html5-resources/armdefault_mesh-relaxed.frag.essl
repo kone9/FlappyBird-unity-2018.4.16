@@ -1,0 +1,78 @@
+#version 100
+precision mediump float;
+precision mediump int;
+
+uniform vec4 shirr[7];
+uniform vec3 sunDir;
+uniform mediump sampler2D shadowMap;
+uniform float shadowsBias;
+uniform vec3 sunCol;
+uniform vec3 pointPos;
+uniform vec2 lightProj;
+uniform float pointBias;
+uniform mediump samplerCube shadowMapPoint[1];
+uniform vec3 pointCol;
+uniform float envmapStrength;
+
+varying vec3 wnormal;
+varying vec4 lightPosition;
+varying vec3 wposition;
+
+float lpToDepth(inout vec3 lp, vec2 lightProj_1)
+{
+    lp = abs(lp);
+    float zcomp = max(lp.x, max(lp.y, lp.z));
+    zcomp = lightProj_1.x - (lightProj_1.y / zcomp);
+    return (zcomp * 0.5) + 0.5;
+}
+
+float attenuate(float dist)
+{
+    return 1.0 / (dist * dist);
+}
+
+vec3 shIrradiance(vec3 nor)
+{
+    vec3 cl00 = vec3(shirr[0].x, shirr[0].y, shirr[0].z);
+    vec3 cl1m1 = vec3(shirr[0].w, shirr[1].x, shirr[1].y);
+    vec3 cl10 = vec3(shirr[1].z, shirr[1].w, shirr[2].x);
+    vec3 cl11 = vec3(shirr[2].y, shirr[2].z, shirr[2].w);
+    vec3 cl2m2 = vec3(shirr[3].x, shirr[3].y, shirr[3].z);
+    vec3 cl2m1 = vec3(shirr[3].w, shirr[4].x, shirr[4].y);
+    vec3 cl20 = vec3(shirr[4].z, shirr[4].w, shirr[5].x);
+    vec3 cl21 = vec3(shirr[5].y, shirr[5].z, shirr[5].w);
+    vec3 cl22 = vec3(shirr[6].x, shirr[6].y, shirr[6].z);
+    return ((((((((((cl22 * 0.429042994976043701171875) * ((nor.y * nor.y) - ((-nor.z) * (-nor.z)))) + (((cl20 * 0.743125021457672119140625) * nor.x) * nor.x)) + (cl00 * 0.88622701168060302734375)) - (cl20 * 0.2477079927921295166015625)) + (((cl2m2 * 0.85808598995208740234375) * nor.y) * (-nor.z))) + (((cl21 * 0.85808598995208740234375) * nor.y) * nor.x)) + (((cl2m1 * 0.85808598995208740234375) * (-nor.z)) * nor.x)) + ((cl11 * 1.02332794666290283203125) * nor.y)) + ((cl1m1 * 1.02332794666290283203125) * (-nor.z))) + ((cl10 * 1.02332794666290283203125) * nor.x);
+}
+
+void main()
+{
+    vec3 n = normalize(wnormal);
+    vec3 basecol = vec3(0.800000011920928955078125);
+    float roughness = 0.25;
+    float metallic = 0.0;
+    float occlusion = 1.0;
+    float specular = 0.5;
+    vec3 direct = vec3(0.0);
+    float svisibility = 1.0;
+    float sdotNL = max(dot(n, sunDir), 0.0);
+    if (lightPosition.w > 0.0)
+    {
+        vec3 lPos = lightPosition.xyz / vec3(lightPosition.w);
+        svisibility = float(texture2D(shadowMap, vec2(lPos.xy)).x > (lPos.z - shadowsBias));
+    }
+    direct += (((basecol * sdotNL) * sunCol) * svisibility);
+    float visibility = 1.0;
+    vec3 ld = pointPos - wposition;
+    vec3 l = normalize(ld);
+    float dotNL = max(dot(n, l), 0.0);
+    vec3 param = ld;
+    float _304 = lpToDepth(param, lightProj);
+    float compare = _304 - (pointBias * 1.5);
+    visibility = float(textureCube(shadowMapPoint[0], vec3((-l) + ((n * pointBias) * 20.0))).x > compare);
+    direct += ((((basecol * dotNL) * pointCol) * attenuate(distance(wposition, pointPos))) * visibility);
+    gl_FragData[0] = vec4(direct + ((basecol * shIrradiance(n)) * envmapStrength), 1.0);
+    vec3 _369 = pow(gl_FragData[0].xyz, vec3(0.4545454680919647216796875));
+    gl_FragData[0] = vec4(_369.x, _369.y, _369.z, gl_FragData[0].w);
+}
+

@@ -8,6 +8,7 @@ public class Columnas : MonoBehaviour
     private Rigidbody moverColumnas;
     private Vector3 Movimiento;
     public GameController _ManejadorJuego;
+    
     void Awake()
     {
         moverColumnas = GetComponent<Rigidbody>();
@@ -43,29 +44,20 @@ public class Columnas : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_ManejadorJuego.gameOver == false)
+        if(_ManejadorJuego.gameOver == false && _ManejadorJuego.comienzaJuego == true)
         {
             this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime;
-
+            if(transform.position.z > 20)
+            {
+                this.transform.position = new Vector3(
+                    this.transform.position.x,
+                    Random.Range(4.5f,8f),//columna posición aleatorio en Y,
+                    -50
+                );
+            }
         }
-        // // if(_ManejadorJuego.gameObject == false)
-        // // {
-        // //     //Movimiento.z = 1f * Time.deltaTime;
-        // //     this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime;
-        // //     //this.transform.Translate(Vector3.forward *  _ManejadorJuego.velocidadJuego * Time.deltaTime);
-        // //     //this.transform.position = this.transform.position + Movimiento * velocidad;
-        // //     if(transform.position.z > 20)
-        // //     {
-        // //         this.transform.position = new Vector3(
-        // //             this.transform.position.x,
-        // //             Random.Range(4.5f,8f),//columna posición aleatorio en Y,
-        // //             -50
-        // //         );
-        // //     }
-
-        // // }
-        
-        
         
     }
+
+
 }

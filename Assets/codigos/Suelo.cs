@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Suelo : MonoBehaviour
 {
-    public int velocidad = 1;
+    
     private Rigidbody moverSuelo;
-    private Vector3 Movimiento;
+    private float desplazamiento;
 
-    public GameObject emphtyReposicionar;
+    public Transform emphtyReposicionar;
     public GameController _ManejadorJuego;
     
      void Awake()
@@ -31,10 +31,16 @@ public class Suelo : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if(_ManejadorJuego.gameOver == false)
         {
-            //Movimiento.z = 1f * Time.deltaTime;
-            this.transform.position += new Vector3(0,0,_ManejadorJuego.velocidadJuego) * Time.deltaTime ;
+            desplazamiento = _ManejadorJuego.velocidadJuego * Time.deltaTime;
+            ///desplazamiento += 3 * Time.deltaTime;  
+            this.transform.position = new Vector3(
+                0,
+                0,
+                this.transform.position.z + desplazamiento
+            );
             //transform.Translate((Vector3.forward * _ManejadorJuego.velocidadJuego * Time.deltaTime),(Space.World));
             //moverSuelo.MovePosition(this.transform.position + Movimiento * _ManejadorJuego.velocidadJuego);
             if(this.transform.position.z > 60)
@@ -44,7 +50,10 @@ public class Suelo : MonoBehaviour
                 this.transform.position = new Vector3(
                     this.transform.position.x,
                     this.transform.position.y,
-                    emphtyReposicionar.transform.position.z);
+                    emphtyReposicionar.position.z - desplazamiento * Time.deltaTime
+                );
+                    print(desplazamiento * Time.deltaTime);
+                    
             }
         }
 

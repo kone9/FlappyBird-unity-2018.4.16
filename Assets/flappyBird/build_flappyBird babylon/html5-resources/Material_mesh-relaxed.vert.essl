@@ -1,0 +1,26 @@
+#version 100
+
+uniform mediump mat4 W;
+uniform mediump mat3 N;
+uniform mediump mat4 WVP;
+uniform mediump float texUnpack;
+uniform mediump mat4 LWVP;
+
+attribute mediump vec4 pos;
+varying mediump vec3 wposition;
+varying mediump vec3 wnormal;
+attribute mediump vec2 nor;
+varying mediump vec2 texCoord;
+attribute mediump vec2 tex;
+varying mediump vec4 lightPosition;
+
+void main()
+{
+    mediump vec4 spos = vec4(pos.xyz, 1.0);
+    wposition = vec4(W * spos).xyz;
+    wnormal = normalize(N * vec3(nor, pos.w));
+    gl_Position = WVP * spos;
+    texCoord = tex * texUnpack;
+    lightPosition = LWVP * spos;
+}
+
